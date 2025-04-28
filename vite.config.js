@@ -28,7 +28,7 @@ export default defineConfig({
                 server.ws.send({
                   type: 'custom',
                   event: 'lyricChange',
-                  data: payload.content.lyricLine
+                  data: payload
                 });
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ status: 'ok' }));
@@ -37,40 +37,7 @@ export default defineConfig({
                 res.writeHead(400);
                 res.end('invalid json');
               }
-            });import { defineConfig } from 'vite';
-
-export default defineConfig({
-  server: {
-    host: '0.0.0.0',
-    port: 5173
-  },
-  plugins: [
-    {
-      name: 'lyric-change-listener',
-      configureServer(server) {
-        server.middlewares.use((req, res, next) => {
-          if (req.url === '/onLyricChange' && req.method === 'POST') {
-            let body = '';
-            req.on('data', chunk => body += chunk);
-            req.on('end', () => {
-              try {
-                const { content: { lyricLine } } = JSON.parse(body);
-                server.ws.send({ type: 'custom', event: 'lyricChange', data: lyricLine });
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ status: 'ok' }));
-              } catch {
-                res.writeHead(400);
-                res.end('Invalid JSON');
-              }
             });
-          } else {
-            next();
-          }
-        });
-      }
-    }
-  ]
-});
           } else {
             next();
           }

@@ -1,7 +1,0 @@
-body{margin:0;overflow:hidden;background:transparent}
-.layer{position:absolute;inset:0;pointer-events:none}
-.bg img{width:100%;height:100%;object-fit:cover}
-.lyric{display:flex;justify-content:center;align-items:center}
-.line1{font:900 120px 'Bebas Neue',sans-serif;color:#fff;text-shadow:4px 4px 8px #000}
-.overlay img{width:100%;height:100%;object-fit:contain;animation:pulse 8s infinite}
-@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
