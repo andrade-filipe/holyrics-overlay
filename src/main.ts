@@ -1,13 +1,15 @@
 initListeners();
 
 async function loadTemplate(name: string) {
+  console.log(`[Template] Carregando "${name}"…`);
   try {
     const res = await fetch(`src/templates/${name}.html`);
-    if (!res.ok) throw new Error(`Error ${res.status}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const html = await res.text();
     document.getElementById('template-container')!.innerHTML = html;
+    console.log(`[Template] "${name}" carregado com sucesso`);
   } catch (e) {
-    console.error('Failed to load template:', e);
+    console.error('[Template] Falha ao carregar template:', e);
   }
 }
 
@@ -21,64 +23,83 @@ function initListeners() {
 }
 
 async function handleLyricChange(payload: any) {
+  console.log('[Lyric] lyricChange recebido:', payload.content.lyricLine);
   const { lyricLine, template, template_slide } = payload.content;
   const tpl = template_slide?.trim() ? template_slide : template;
   await loadTemplate(tpl);
   const el = document.getElementById('lyric');
-  if (el) el.textContent = lyricLine;
+  if (el) {
+    el.textContent = lyricLine;
+    console.log('[Lyric] Texto da letra atualizado');
+  } else {
+    console.warn('[Lyric] Elemento #lyric não encontrado');
+  }
 }
+
 
 function handleBackgroundChange(payload: any) {
-  const content = payload.content;
-  const bg = document.querySelector('.bg') as HTMLElement;
-  if (!bg) return;
+  console.log('[Background] recebido:', payload.content.type);
+  const bg      = document.querySelector('.bg') as HTMLElement | null;
+  const bgImg   = document.getElementById('bg-img') as HTMLElement | null;
+  const bgVideo = document.getElementById('bg-video') as HTMLVideoElement | null;
+  if (!bg) return console.warn('.bg não encontrado');
 
-  if (content.type === 'IMAGE' && content.url) {
-    bg.style.backgroundImage = `url(${content.url})`;
-    bg.style.backgroundSize = 'cover';
-  } else if (content.type === 'THEME' && content.colors) {
-    // exemplo: altera variáveis CSS definidas no tema
-    document.documentElement.style.setProperty('--gradient-start', content.colors[0]);
-    document.documentElement.style.setProperty('--gradient-end',   content.colors[1]);
-    document.documentElement.style.setProperty('--bg-color',       content.colors[0]);
-    document.documentElement.style.setProperty('--text-color',     content.colors[2]);
+  // reset visual
+  bgImg   && (bgImg.style.display = 'none');
+  bgVideo && (bgVideo.style.display = 'none');
+
+  const { type, name, url, color_map } = payload.content;
+
+  if (type === 'MY_IMAGE' || type === 'IMAGE') {
+    const src = type === 'MY_IMAGE'
+      ? `/holyrics-images/${encodeURIComponent(name)}.png`
+      : url;
+    console.log('[Background] imagem local/API →', src);
+    if (bgImg) {
+      bgImg.style.backgroundImage = `url('${src}')`;
+      bgImg.style.display         = 'block';
+    }
+  }
+  else if (type === 'VIDEO' && bgVideo) {
+    const src = `/holyrics-images/${encodeURIComponent(name)}.mp4`;
+    console.log('[Background] vídeo local →', src);
+    bgVideo.src           = src;
+    bgVideo.style.display = 'block';
+  }
+  else if (type === 'THEME' && Array.isArray(color_map)) {
+    const [start, end] = color_map.map((c: any) => c.hex || c[0]);
+    console.log('[Background] tema →', start, end);
+    bg.style.background = `linear-gradient(180deg, ${start}, ${end||start})`;
+  }
+  else {
+    console.warn('[Background] tipo não suportado:', type);
   }
 }
-
 async function handleVerseChange(payload: any) {
+  console.log('[Verse] verseChange recebido:', payload.content.reference);
   try {
-    // 1) carrega o template
     await loadTemplate('bible');
-    console.log('[Verse] Template "bible" carregado');
-
-    // 2) monta URL e fetch
     const url = buildBibleApiUrl(payload);
-    console.log('[Verse] Fetching', url);
-    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+    console.log('[Verse] Buscando versículo em:', url);
+    const res  = await fetch(url, { headers: { Accept: 'application/json' }});
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
-    console.log('[Verse] JSON recebido:', json);
-
-    // 3) extrai referência e texto
-    const reference = json.reference as string;      // ex.: "1 Coríntios 1:5"
-    const text      = json.text as string;           // texto completo do versículo
-
-    // 4) injeta no <p id="verse"> dentro de #template-container
     const container = document.getElementById('template-container');
     if (!container) throw new Error('#template-container não encontrado');
-
     const el = container.querySelector<HTMLParagraphElement>('#verse');
     if (!el) throw new Error('<p id="verse"> não existe no template');
-
-    el.innerHTML = `<strong>${reference}</strong><br>${text.trim()}`;
-    console.log('[Verse] Versículo injetado com sucesso');
+    el.innerHTML = `<strong>${json.reference}</strong><br>${json.text.trim()}`;
+    console.log('[Verse] Versículo atualizado');
   } catch (err) {
-    console.error('Erro ao buscar ou injetar versículo:', err);
+    console.error('[Verse] Erro ao processar verseChange:', err);
   }
 }
 
+// buildBibleApiUrl usa apenas bible-api.com
 function buildBibleApiUrl(evt: { content: { reference: string } }): string {
-  // Ex.: "1 Coríntios 1:5" → "1+Coríntios+1:5"
-  const ref = evt.content.reference.split(' ').join('+');
-  return `https://bible-api.com/${encodeURIComponent(ref)}?translation=almeida`;
+  const refRaw   = evt.content.reference;                            // e.g. "1 Coríntios 1:5"
+  const noAcc    = refRaw.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const plused   = noAcc.split(' ').join('+');                      // "1+Corintios+1:5"
+  const encoded  = encodeURI(plused);                               // mantem + e :
+  return `https://bible-api.com/${encoded}?translation=almeida`;
 }

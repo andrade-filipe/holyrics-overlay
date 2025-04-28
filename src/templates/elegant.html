@@ -11,10 +11,27 @@
     --padding-text: 0.5rem;
   }
   
-  /* Fundo branco */
-  .bg {
+  #bg, #bg-video, .bg-img {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+  #bg {
     z-index: 1;
     background-color: var(--bg-color);
+  }
+  /* Vídeo de fundo (invisível por padrão) */
+  #bg-video {
+    display: none;
+  }
+  /* Imagem/GIF de fundo (invisível por padrão) */
+  .bg-img {
+    display: none;
+    background-size: cover;
+    background-position: center;
   }
   
   /* Camada de texto */
@@ -53,7 +70,10 @@
     z-index: 3;
   }
 </style>
-<div class="layer bg"></div>
+
+<div id="bg" class="layer bg"></div>
+<video id="bg-video" autoplay loop muted playsinline></video>
+<div id="bg-img" class="bg-img"></div>
 
 <div class="layer lyric">
   <p id="lyric" class="lyric__text">

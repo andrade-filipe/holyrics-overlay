@@ -8,13 +8,27 @@
       --padding-text: 0.5rem;
     }
   
-    /* Camada de fundo */
-    .bg {
+    #bg, #bg-video, .bg-img {
       position: absolute;
       inset: 0;
       z-index: 1;
-      background-color: var(--bg-color);
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
     }
+    #bg {
+      background-color: #f7f7f5;
+    }
+    /* Vídeo de fundo (invisível por padrão) */
+    #bg-video {
+      display: none;
+    }
+    /* Imagem/GIF de fundo (invisível por padrão) */
+    .bg-img {
+      display: none;
+      background-size: cover;
+      background-position: center;
+    }  
   
     /* Camada do versículo, sempre no meio */
     .verse {
@@ -46,7 +60,9 @@
     }
   </style>
   
-  <div id="bg" class="bg"></div>
+  <div id="bg"></div>
+  <video id="bg-video" autoplay loop muted playsinline></video>
+  <div id="bg-img" class="bg-img"></div>
   
   <div class="verse">
     <p id="verse" class="verse-text">
