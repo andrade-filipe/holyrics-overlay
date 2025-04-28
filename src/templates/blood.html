@@ -1,0 +1,71 @@
+<style>
+    :root {
+      --gradient-start: #8b0000;
+      --gradient-end:   #330000;
+      --text-color:     #fff;
+      --font-main:      "Playfair Display", serif;
+      --font-script:    "Great Vibes", cursive;
+      --size-main:      9rem;
+      --size-first-line:10rem;
+      --line-height:    0.8;
+      --width-text:     80vw;
+      --padding-text:   0.5rem;
+    }
+  
+    .layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+  
+    .bg {
+      z-index: 1;
+      background: linear-gradient(
+        180deg,
+        var(--gradient-start) 0%,
+        var(--gradient-end)   100%
+      );
+    }
+  
+    .lyric {
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .lyric__text {
+      width: var(--width-text);
+      padding: 0 var(--padding-text);
+      white-space: pre-line;
+      word-break: keep-all;
+      overflow-wrap: normal;
+  
+      color: var(--text-color);
+      font-family: var(--font-main);
+      font-size: var(--size-main);
+      line-height: var(--line-height);
+      text-align: center;
+    }
+  
+    .lyric__text::first-line {
+      font-family: var(--font-script);
+      font-size: var(--size-first-line);
+      line-height: var(--line-height);
+    }
+  
+    .overlay {
+      z-index: 3;
+    }
+  </style>
+  
+  <div class="layer bg"></div>
+  
+  <div class="layer lyric">
+    <p id="lyric" class="lyric__text">
+      Aqui vai sua primeira linha em script…  
+      E aqui a continuação em serif contrastante.
+    </p>
+  </div>
+  
+  <div class="layer overlay"></div>
