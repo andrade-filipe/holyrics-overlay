@@ -1,39 +1,50 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-    server: {
-        host: '0.0.0.0',
-        port: 5173
-      },
+  server: {
+    host: '0.0.0.0',
+    port: 5173,
+    proxy: {
+      // Proxy sem rewrite: mantém /data no path
+      '/data': {
+        target: 'https://bible-api.com',
+        changeOrigin: true,
+      }
+    }
+  },
   plugins: [
     {
-      name: 'lyric-change-listener',
+      name: 'holyrics-listener',
       configureServer(server) {
-        // Middleware debug: log all incoming requests
         server.middlewares.use((req, res, next) => {
-          console.log(`[lyric-plugin] ${req.method} ${req.url}`);
           if (req.url === '/onLyricChange' && req.method === 'POST') {
-            console.log('[lyric-plugin] Handling POST /onLyricChange');
             let body = '';
-            req.on('data', chunk => {
-              console.log('[lyric-plugin] Received chunk:', chunk.toString());
-              body += chunk;
-            });
+            req.on('data', chunk => body += chunk);
             req.on('end', () => {
-              console.log('[lyric-plugin] Full body:', body);
               try {
                 const payload = JSON.parse(body);
-                console.log('[lyric-plugin] Parsed payload:', payload);
-                // Dispara evento HMR
-                server.ws.send({
-                  type: 'custom',
-                  event: 'lyricChange',
-                  data: payload
-                });
+                console.log(payload);
+                // mapeia action para evento HMR
+                const eventMap = {
+                  onLyricChange:     'lyricChange',
+                  onBackgroundChange:'backgroundChange',
+                  onThemeChange:     'themeChange',
+                  onVerseChange:     'verseChange'
+                };
+                const eventName = eventMap[payload.action];
+                if (eventName) {
+                  server.ws.send({
+                    type: 'custom',
+                    event: eventName,
+                    data: payload
+                  });
+                } else {
+                  console.warn(`[holyrics-listener] ação desconhecida: ${payload.action}`);
+                }
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ status: 'ok' }));
-              } catch (e) {
-                console.error('[lyric-plugin] JSON parse error:', e);
+              } catch (err) {
+                console.error('[holyrics-listener] JSON inválido', err);
                 res.writeHead(400);
                 res.end('invalid json');
               }

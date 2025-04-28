@@ -1,0 +1,59 @@
+<style>
+    :root {
+      --bg-color: #f7f7f5;
+      --text-color: #333;
+      --font-verse: "Playfair Display", serif;
+      --size-verse: 1.5rem;
+      --width-text: 80vw;
+      --padding-text: 0.5rem;
+    }
+  
+    /* Camada de fundo */
+    .bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-color: var(--bg-color);
+    }
+  
+    /* Camada do versículo, sempre no meio */
+    .verse {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .verse-text {
+      width: var(--width-text);
+      padding: 0 var(--padding-text);
+      white-space: pre-line;
+      word-break: keep-all;
+      overflow-wrap: normal;
+      color: var(--text-color);
+      font-family: var(--font-verse);
+      font-size: var(--size-verse);
+      text-align: center;
+    }
+  
+    /* Overlay para elementos adicionais */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+  </style>
+  
+  <div id="bg" class="bg"></div>
+  
+  <div class="verse">
+    <p id="verse" class="verse-text">
+      <!-- Versículo bíblico será injetado aqui -->
+      Seu versículo aparecerá aqui...
+    </p>
+  </div>
+  
+  <div id="overlay" class="overlay"></div>
+  
