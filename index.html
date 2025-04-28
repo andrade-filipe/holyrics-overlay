@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    
+    <div id="app"></div>
+
+    <div id="template-selector" style="position: fixed; top: 1rem; right: 1rem; z-index: 999;">
+      <select id="tplSel">
+        <option value="big">Big</option>
+        <option value="lower">Lower-third</option>
+        <option value="bible">Bíblia</option>
+      </select>
+    </div>
+
+    <script>
+      // Aguarda o DOM estar pronto (já garantido no fim do body) :contentReference[oaicite:1]{index=1}
+      const sel = document.getElementById('tplSel');
+      sel.addEventListener('change', e => {
+        const tpl = e.target.value;
+        // Atualiza a hash da URL para que o seu main.ts possa ler :contentReference[oaicite:2]{index=2}
+        location.hash = 'template=' + tpl;
+        // Gatilho global (defina window.loadTemplate em main.ts)
+        if (typeof window.loadTemplate === 'function') {
+          window.loadTemplate(tpl);
+        }
+      });
+    </script>
+
+    <!-- Script principal do Vite -->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
