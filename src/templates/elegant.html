@@ -1,0 +1,65 @@
+<style>
+  :root {
+    --bg-color: #f7f7f5;
+    --text-color: #333;
+    --font-main: "Funnel Display", cursive;
+    --font-script: "Imperial Script", cursive;
+    --size-main: 9rem;
+    --size-first-line: 10rem;
+    --line-height: 0.8;
+    --width-text: 80vw;
+    --padding-text: 0.5rem;
+  }
+  
+  /* Fundo branco */
+  .bg {
+    z-index: 1;
+    background-color: var(--bg-color);
+  }
+  
+  /* Camada de texto */
+  .lyric {
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Texto principal */
+  .lyric__text {
+    width: var(--width-text);
+    padding: 0 var(--padding-text);
+    max-width: none;
+  
+    white-space: pre-line;
+    word-break: keep-all;
+    overflow-wrap: normal;
+  
+    color: var(--text-color);
+    font-family: var(--font-main);
+    font-size: var(--size-main);
+    line-height: var(--line-height);
+    text-align: center;
+  }
+  
+  .lyric__text::first-line {
+    font-family: var(--font-script);
+    font-size: var(--size-first-line);
+    line-height: var(--line-height);
+  }
+  
+  /* Overlay gráfico, acima de tudo */
+  .overlay {
+    z-index: 3;
+  }
+</style>
+<div class="layer bg"></div>
+
+<div class="layer lyric">
+  <p id="lyric" class="lyric__text">
+    Sua primeira frase em script elegante…  
+    E aqui a segunda frase em serif para contraste.
+  </p>
+</div>
+
+<div class="layer overlay"></div>
