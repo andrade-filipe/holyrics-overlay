@@ -1,77 +1,60 @@
+// vite.config.js
 import { defineConfig } from 'vite';
 import path from 'path';
-import fs from 'fs';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
-const PROJECT_ROOT   = path.resolve(__dirname);
-const IMAGES_DIR     = path.join(PROJECT_ROOT, 'holyrics-images');
+const PROJECT_ROOT = path.resolve(__dirname);
+const IMAGES_DIR   = path.join(PROJECT_ROOT, 'holyrics-images');
 
-export default defineConfig({
+function holyricsListener() {
+  return {
+    name: 'holyrics-listener',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        console.log(`[VITE HTTP] ${new Date().toISOString()} ${req.method} ${req.url}`);
+        next();
+      });
+      server.middlewares.use((req, res, next) => {
+        if (req.method === 'POST' && req.url.startsWith('/on')) {
+          console.log(`[VITE Holyrics] POST ${req.url}`);
+          let body = '';
+          req.on('data', chunk => { body += chunk; console.log(`[VITE Holyrics] chunk: ${chunk}`); });
+          req.on('end', () => {
+            console.log(`[VITE Holyrics] payload: ${body}`);
+            try {
+              const payload = JSON.parse(body);
+              const eventMap = {
+                onLyricChange:      'lyricChange',
+                onBackgroundChange: 'backgroundChange',
+                onThemeChange:      'themeChange',
+                onVerseChange:      'verseChange'
+              };
+              const eventName = eventMap[payload.action];
+              console.log(`[VITE Holyrics] eventName: ${eventName}`);
+              if (eventName) server.ws.send({ type: 'custom', event: eventName, data: payload });
+              res.writeHead(200, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ status: 'ok' }));
+            } catch (err) {
+              console.error('[VITE Holyrics] parse error', err);
+              res.writeHead(400);
+              res.end('invalid JSON');
+            }
+          });
+        } else next();
+      });
+    }
+  };
+}
+
+export default defineConfig(({ command }) => ({
   root: PROJECT_ROOT,
   server: {
     host: '0.0.0.0',
     port: 5173,
-    fs: {
-      allow: [PROJECT_ROOT, IMAGES_DIR]
-    }
+    fs: { allow: [PROJECT_ROOT, IMAGES_DIR] }
   },
   plugins: [
-    {
-      name: 'holyrics-listener',
-      configureServer(server) {
-        server.middlewares.use('/holyrics-images', (req, res, next) => {
-          const rel    = decodeURIComponent(req.url.replace(/^\/holyrics-images\//, ''));
-          const full   = path.join(IMAGES_DIR, rel);
-          fs.stat(full, (err, st) => {
-            if (err || !st.isFile()) return next();
-            const ext = path.extname(full).toLowerCase();
-            const mime = {
-              '.png':  'image/png',
-              '.jpg':  'image/jpeg',
-              '.jpeg': 'image/jpeg',
-              '.gif':  'image/gif'
-            }[ext] || 'application/octet-stream';
-            res.writeHead(200, { 'Content-Type': mime });
-            fs.createReadStream(full).pipe(res);
-          });
-        });
-
-        // 2) listener dos eventos do Holyrics
-        server.middlewares.use((req, res, next) => {
-          if (req.url === '/onLyricChange' && req.method === 'POST') {
-            let body = '';
-            req.on('data', chunk => (body += chunk));
-            req.on('end', () => {
-              try {
-                const payload = JSON.parse(body);
-                const eventMap = {
-                  onLyricChange:     'lyricChange',
-                  onBackgroundChange:'backgroundChange',
-                  onThemeChange:     'themeChange',
-                  onVerseChange:     'verseChange'
-                };
-                const eventName = eventMap[payload.action];
-                if (eventName) {
-                  server.ws.send({
-                    type: 'custom',
-                    event: eventName,
-                    data: payload
-                  });
-                } else {
-                  console.warn(`[holyrics-listener] ação desconhecida: ${payload.action}`);
-                }
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ status: 'ok' }));
-              } catch (err) {
-                console.error('[holyrics-listener] JSON inválido', err);
-                res.writeHead(400);
-                res.end('invalid json');
-              }
-            });
-          } else {
-            next();
-          }
-        });
-      }
-    }
-  ]
-});
+    viteStaticCopy({ targets: [{ src: 'src/templates/*.html', dest: '' }] }),
+    command === 'serve' && holyricsListener()
+  ].filter(Boolean)
+}));

@@ -5,12 +5,21 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build": "vite build",
+    "serve:exe": "pkg serve.js --targets node18-win-x64 --output holyrics-server.exe"
+  },
+  "pkg": {
+    "assets": [
+      "dist/**/*"
+    ]
   },
   "devDependencies": {
+    "pkg": "^5.8.1",
     "typescript": "~5.7.2",
-    "vite": "^6.3.1"
+    "vite": "^6.3.1",
+    "vite-plugin-static-copy": "^2.3.1",
+    "ws": "^8.18.1"
   },
   "dependencies": {
     "classnames": "^2.5.1",
