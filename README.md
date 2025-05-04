@@ -1,5 +1,5 @@
 # Exemplo de como configurar o gatilho
-function getUrl(obj) {
+> function getUrl(obj) {
   return {
     type      : 'POST',
     url_suffix: '/onLyricChange',                 
