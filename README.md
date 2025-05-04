@@ -15,3 +15,6 @@
     }
   };
 }
+
+Colocar na "Anotação" da Música o tema padrão, exemplo: "elegant"
+e se quiser, colocar na "Descrição" da parte especifica outro tema, exemplo: "blood"
