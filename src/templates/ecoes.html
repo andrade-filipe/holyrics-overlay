@@ -1,0 +1,23 @@
+<!-- 4. Simples com Dupla Tipografia: “Eco Reverente” -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:ital,wght@300&display=swap');
+  .eco { background-color: #000; }
+  .eco #lyric {
+    font-family: 'Roboto', sans-serif;
+    font-size: 5vh;
+    color: #888;
+    text-transform: none;
+    text-align: center;
+    white-space: pre-line;
+    margin: 0;
+  }
+  .eco #lyric::first-line {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10vh;
+    color: #fff;
+    text-transform: uppercase;
+  }
+</style>
+<div class="template-wrapper eco">
+  <div id="lyric">Santo Santo Santo\nÉ o Senhor dos Exércitos</div>
+</div>

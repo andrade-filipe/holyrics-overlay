@@ -127,4 +127,6 @@ Uso de backgrounds nativos do Holyrics (Não Implementado)
 
 Templates prontos (lower-third, motion BGs, etc.) (Não Implementado)
 
+Permitir Pastas para os templates
+
 Pull Requests são bem-vindos!!.

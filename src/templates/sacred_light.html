@@ -1,0 +1,28 @@
+<!-- 2. Elegante com SVG Overlay: “Luz Sagrada” -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=EB+Garamond&display=swap');
+  .luz { background: radial-gradient(circle at center, #fff1c1, #ffe4a1); }
+  .luz svg { position: absolute; width: 120%; opacity: 0.1; }
+  .luz #lyric {
+    font-family: 'EB Garamond', serif;
+    font-size: 4vh;
+    color: #331a00;
+    text-align: center;
+    white-space: pre-line;
+    margin: 0;
+  }
+  .luz #lyric::first-line {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 7vh;
+    color: #663300;
+    mix-blend-mode: overlay;
+  }
+</style>
+<div class="template-wrapper luz">
+  <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+    <polygon points="0,50 100,0 100,100" fill="#fff" />
+    <polygon points="0,50 100,25 100,75" fill="#fff" />
+  </svg>
+  <div id="lyric">Graça que me envolve\nComo ondas do mar</div>
+</div>

@@ -17,15 +17,18 @@ socket.addEventListener('message', (ev) => {
 
 //--------------------------------------
 async function loadTemplate(name: string) {
-  console.log(`[Template] Carregando "${name}"…`);
+  const tplPath = name.replace(/\\/g, '/') + (name.endsWith('.html') ? '' : '.html');
+
   try {
-    const res = await fetch(`/${name}.html`);
+    console.log(`[Template] Carregando "${tplPath}"…`);
+    const res = await fetch(`/${tplPath}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const html = await res.text();
     document.getElementById('template-container')!.innerHTML = html;
-    console.log(`[Template] "${name}" carregado com sucesso`);
-  } catch (e) {
-    console.error('[Template] Falha ao carregar template:', e);
+    console.log(`[Template] "${tplPath}" carregado com sucesso`);
+  } catch (err) {
+    console.error(`[Template] falha ao carregar "${tplPath}":`, err);
+    // opcional: inserir mensagem de erro / fallback visual
   }
 }
 

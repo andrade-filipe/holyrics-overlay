@@ -1,75 +1,33 @@
 <style>
-    :root {
-      --bg-color: #f7f7f5;
-      --text-color: #333;
-      --font-verse: "Playfair Display", serif;
-      --size-verse: 1.5rem;
-      --width-text: 80vw;
-      --padding-text: 0.5rem;
-    }
-  
-    #bg, #bg-video, .bg-img {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-    }
-    #bg {
-      background-color: #f7f7f5;
-    }
-    /* Vídeo de fundo (invisível por padrão) */
-    #bg-video {
-      display: none;
-    }
-    /* Imagem/GIF de fundo (invisível por padrão) */
-    .bg-img {
-      display: none;
-      background-size: cover;
-      background-position: center;
-    }  
-  
-    /* Camada do versículo, sempre no meio */
-    .verse {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .verse-text {
-      width: var(--width-text);
-      padding: 0 var(--padding-text);
-      white-space: pre-line;
-      word-break: keep-all;
-      overflow-wrap: normal;
-      color: var(--text-color);
-      font-family: var(--font-verse);
-      font-size: var(--size-verse);
-      text-align: center;
-    }
-  
-    /* Overlay para elementos adicionais */
-    .overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      pointer-events: none;
-    }
-  </style>
-  
-  <div id="bg"></div>
-  <video id="bg-video" autoplay loop muted playsinline></video>
-  <div id="bg-img" class="bg-img"></div>
-  
-  <div class="verse">
-    <p id="verse" class="verse-text">
-      <!-- Versículo bíblico será injetado aqui -->
-      Seu versículo aparecerá aqui...
-    </p>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;700&display=swap');
+  .papiro {
+    background:url('papyrus.jpg') center/cover no-repeat;
+  }
+  .papiro .box {
+    background:rgba(255,251,240,0.9);
+    padding:3rem;
+    border:2px solid #dac292;
+    border-radius:12px;
+    text-align:center;
+  }
+  .papiro .box .verse {
+    font-family:'EB Garamond',serif;
+    font-size:5vh;
+    font-style:italic;
+    color:#3e2e10;
+    line-height:1.6;
+  }
+  .papiro .box .ref {
+    font-family:'Montserrat',sans-serif;
+    font-size:4vh;
+    font-weight:700;
+    color:#5b461e;
+    margin-top:1rem;
+  }
+</style>
+<div class="template-wrapper papiro">
+  <div class="box">
+    <div id="verse" class="verse">No princípio criou Deus\nos céus e a terra.</div>
+    <div id="verse" class="ref">Gênesis 1:1</div>
   </div>
-  
-  <div id="overlay" class="overlay"></div>
-  
+</div>

@@ -1,0 +1,92 @@
+<!-- Template – Chama de Adoração Impactante (Cal Sans) -->
+<style>
+  /* Importa Cal Sans e Montserrat para contraste */
+  @import url('https://fonts.googleapis.com/css2?family=Cal+Sans:ital,wght@0,400;0,700&family=Montserrat:wght@900&display=swap');
+
+  .template-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; height: 100%;
+    background: #050505;
+    overflow: hidden;
+  }
+
+  /* Partículas no fundo, fluindo para baixo */
+  .template-wrapper::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url('particles.png') repeat;
+    opacity: 0.35;
+    mix-blend-mode: lighten;
+    animation: flow 12s linear infinite;
+  }
+  @keyframes flow {
+    from { background-position: 0 -0px; }
+    to   { background-position: 0 1000px; }
+  }
+
+  /* Radial pulsante de luz quente */
+  .template-wrapper::after {
+    content:'';
+    position:absolute; inset:0;
+    background: radial-gradient(circle at center, rgba(255,140,0,0.4), rgba(0,0,0,0.85));
+    animation: pulseLight 4s ease-in-out infinite;
+  }
+  @keyframes pulseLight {
+    0%,100% { opacity: 0.4; }
+    50%     { opacity: 0.6; }
+  }
+
+  /* Texto com entrada e glow */
+  #lyric {
+    position: relative; z-index: 2;
+    max-width: 90%;
+    font-family: 'Cal Sans', sans-serif;
+    font-weight: 700;
+    font-size: 8vh;
+    color: #ffd740;
+    text-align: center;
+    line-height: 1.3;
+    white-space: pre-line;
+    margin: 0;
+    text-shadow:
+      0 0 6px rgba(255,215,0,0.7),
+      0 0 12px rgba(255,140,0,0.5);
+    animation: textIn 1s ease-out both, glow 2s ease-in-out infinite alternate;
+  }
+  @keyframes textIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.9); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes glow {
+    from {
+      text-shadow:
+        0 0 8px rgba(255,215,0,0.5),
+        0 0 16px rgba(255,140,0,0.3);
+    }
+    to {
+      text-shadow:
+        0 0 12px rgba(255,215,0,1),
+        0 0 24px rgba(255,140,0,0.8);
+    }
+  }
+
+  /* Primeira linha dramática */
+  #lyric::first-line {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 6vh;
+    color: #fff;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+</style>
+
+<div class="template-wrapper">
+  <div id="lyric">
+    Aquele que tem os meus mandamentos  
+    E os guarda, este é o que me ama
+  </div>
+</div>

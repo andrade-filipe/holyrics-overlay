@@ -75,7 +75,8 @@ const server = http.createServer((req, res) => {
       '.png':  'image/png',
       '.jpg':  'image/jpeg',
       '.jpeg': 'image/jpeg',
-      '.gif':  'image/gif'
+      '.gif':  'image/gif',
+      '.mp4': 'video/mp4'
     };
     res.writeHead(200, { 'Content-Type': mimeTypes[ext] || 'application/octet-stream' });
     fs.createReadStream(filePath).pipe(res);
