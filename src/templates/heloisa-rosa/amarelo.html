@@ -1,25 +1,22 @@
-<!-- Template 2 – Caminho Luminoso -->
+<!-- Template 2 – Caminho Luminoso (listras animadas, texto estático, duas fontes CSS-only) -->
 <style>
-  /* Importa Cal Sans e Montserrat Black */
-  @import url('https://fonts.googleapis.com/css2?family=Cal+Sans:ital,wght@0,400;0,700&family=Montserrat:wght@900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Cal+Sans:ital,wght@0,400;0,700&display=swap');
 
   .template-wrapper {
     position: relative;
-    width:100%; height:100%;
-    display:flex; align-items:center; justify-content:center;
-    /* listras diagonais amarelo/branco sobre gradiente suave */
-    background: 
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; height: 100%;
+    background:
       repeating-linear-gradient(
         45deg,
         rgba(255,235,59,0.3) 0 20px,
         rgba(255,255,255,0.3) 20px 40px
       ),
-      radial-gradient(circle at center, #fff9c4 0%, #ffe082 80%);
+      radial-gradient(circle at center, #fff9c4 0%, #ffe082 100%);
     background-size: 200% 200%;
     animation: bgShift 8s ease-in-out infinite alternate;
-    overflow:hidden;
+    overflow: hidden;
   }
-
   @keyframes bgShift {
     from { background-position: 0% 0%; }
     to   { background-position: 100% 100%; }
@@ -28,37 +25,31 @@
   #lyric {
     position: relative; z-index: 1;
     max-width: 85%;
-    font-family: 'Cal Sans', sans-serif;
-    font-weight: 700;
-    font-size: 5.5vh;
-    color: #333;
+    margin: 0;
     text-align: center;
     line-height: 1.4;
     white-space: pre-line;
-    margin: 0;
+    /* Fonte padrão para todas as linhas (incluindo a 2ª) */
+    font-family: 'Cal Sans', sans-serif;
+    font-weight: 700;
+    font-size: 8vh;       /* mesmo tamanho das duas primeiras linhas */
+    color: #1a1a1a;
     text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    opacity: 0;
-    animation: textSlideUp 1s ease-out forwards 0.3s;
   }
 
-  @keyframes textSlideUp {
-    from { transform: translateY(30px); opacity: 0; }
-    to   { transform: translateY(0);     opacity: 1; }
-  }
-
-  /* Primeira linha em Montserrat Black, maior e mais escura */
+  /* Só a PRIMEIRA linha troca para Montserrat, mantendo 8vh */
   #lyric::first-line {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
     font-size: 8vh;
-    color: #1a1a1a;
-    display: block;
-    margin-bottom: 0.5em;
+    /* mantém cor e text-transform conforme quiser */
+    text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 </style>
 
 <div class="template-wrapper">
   <div id="lyric">
+
   </div>
 </div>
