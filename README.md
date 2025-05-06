@@ -125,8 +125,6 @@ Suporte aos atalhos do Holyrics (F9, ocultar texto, etc.) (Não Implementado)
 
 Uso de backgrounds nativos do Holyrics (Não Implementado)
 
-Templates prontos (lower-third, motion BGs, etc.) (Não Implementado)
-
-Permitir Pastas para os templates
+Templates prontos (parcialmente implementados)
 
 Pull Requests são bem-vindos!!.
