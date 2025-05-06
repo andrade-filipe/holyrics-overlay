@@ -93,7 +93,7 @@ Descrição do slide → aplica ao slide selecionado e os seguintes (feature do 
 > Durante a criação de templates use npm run dev para hot-reload.
 
 ## Em Desenvolvimento
-### Gatilho para texto bíblico
+### Gatilho para texto bíblico (Implementado Parcialmente)
 
 Gatilho: Eventos - Versiculo em Exibição
 
@@ -117,4 +117,14 @@ function getUrl(obj) {
   };
 }
 ```
+Por enquanto o texto biblico só é mostrado em versão almeida, mas já funciona com os templates que você criar
 
+## Outros
+
+Suporte aos atalhos do Holyrics (F9, ocultar texto, etc.) (Não Implementado)
+
+Uso de backgrounds nativos do Holyrics (Não Implementado)
+
+Templates prontos (lower-third, motion BGs, etc.) (Não Implementado)
+
+Pull Requests são bem-vindos!!.
