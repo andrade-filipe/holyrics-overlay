@@ -91,3 +91,30 @@ Anotação da música → aplica o template a todos os slides.
 Descrição do slide → aplica ao slide selecionado e os seguintes (feature do holyrics), esse tem prioridade em cima do tema global da música.
 
 > Durante a criação de templates use npm run dev para hot-reload.
+
+## Em Desenvolvimento
+### Gatilho para texto bíblico
+
+Gatilho: Eventos - Versiculo em Exibição
+
+Código:
+```javascript
+function getUrl(obj) {
+  return {
+    type      : 'POST',
+    url_suffix: '/onLyricChange',
+    headers   : { 'Content-Type': 'application/json' },
+    data      : {
+      action : 'onVerseChange',
+      content: {
+        verseId   : obj.id,
+        book      : obj.book,
+        chapter   : obj.chapter,
+        verse     : obj.verse,
+        reference : obj.reference
+      }
+    }
+  };
+}
+```
+
