@@ -1,0 +1,55 @@
+<!-- Template – Desejável (Graça) -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cal+Sans:wght@500&display=swap');
+  
+    .template-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%; height: 100%;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #2a3b5f 0%, #1b2a47 100%);
+    }
+  
+    /* ---------- Efeito de partículas suaves ---------- */
+    .template-wrapper::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('/grace_particles.png') center/cover no-repeat;
+      opacity: 0.1;
+      animation: floatParticles 60s linear infinite;
+    }
+    @keyframes floatParticles {
+      0%   { transform: translateX(0) translateY(0); }
+      50%  { transform: translateX(-2%) translateY(-2%); }
+      100% { transform: translateX(0) translateY(0); }
+    }
+  
+    /* ---------- Texto ---------- */
+    #lyric {
+      position: relative; z-index: 1;
+      max-width: 80%;
+      white-space: pre-line;
+      text-align: center;
+      line-height: 1.5;
+      margin: 0;
+      font-family: 'Cal Sans', sans-serif;
+      font-size: 6.5vh;
+      color: #e0e4f2;
+      text-shadow: 0 2px 6px rgba(0,0,0,.8);
+    }
+  
+    /* Primeira linha em destaque */
+    #lyric::first-line {
+      font-family: 'Playfair Display', serif;
+      font-size: 7vh;
+      text-transform: uppercase;
+      color: #ffffff;
+      letter-spacing: 0.05em;
+    }
+</style>
+  
+<div class="template-wrapper">
+  <div id="lyric"></div>
+</div>
