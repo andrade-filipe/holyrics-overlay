@@ -8,6 +8,10 @@ const TEMPLATE_CACHE = new Map<string, string>();       // path → HTML
 /* ---------------- boot listeners ---------------- */
 initListeners();
 
+document.addEventListener('DOMContentLoaded', () => {
+  showStartupNotification();
+});
+
 // HMR e WebSocket
 const socket = new WebSocket(`ws://${location.host}`);
 socket.addEventListener('open', () => console.log('WebSocket conectado'));
@@ -143,4 +147,29 @@ function initListeners() {
   import.meta.hot.on("backgroundChange", handleBackgroundChange);
   import.meta.hot.on("themeChange",      handleBackgroundChange);
   import.meta.hot.on("verseChange",      handleVerseChange);
+}
+
+/* =========================================================================== */
+/* FUNÇÃO DE NOTIFICAÇÃO DE STARTUP                                           */
+/* =========================================================================== */
+function showStartupNotification() {
+  const host = window.location.hostname;
+  const port = window.location.port;
+  const address = `${host}:${port}`;
+
+  if (!('Notification' in window)) {
+    console.warn('Este navegador não suporta notificações de desktop.');
+    return;
+  }
+
+  Notification.requestPermission().then(permission => {
+    if (permission === 'granted') {
+      const notification = new Notification('Holyrics Custom Templates', {
+        body: `Servidor iniciado em: ${address}`,
+        icon: '/favicon.ico'
+      });
+    } else {
+      console.warn('Permissão para notificações foi negada.');
+    }
+  });
 }

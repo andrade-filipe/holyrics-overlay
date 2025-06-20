@@ -1,0 +1,38 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap');
+
+  .template-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      /* **AJUSTE AQUI: Use 100vh para ocupar 100% da altura da viewport** */
+      height: 100vh;
+      
+      /* Ajustes para a imagem de fundo */
+      background-image: url('telao-tema-sem-palavras.png');
+      background-repeat: no-repeat; /* Garante que a imagem não se repita */
+      background-size: cover; /* Faz a imagem cobrir toda a área, sem repetição */
+      background-position: center center; /* Centraliza a imagem no contêiner */
+      
+      position: relative;
+      overflow: hidden;
+  }
+
+  #lyric {
+    font-family: 'Faculty Glyphic', serif;
+    
+    /* **IMP: Tamanho da fonte ajustado para ser maior** */
+    font-size: 3em; /* Ajuste este valor (ex: 2em, 4em, 5vw para responsividade) */
+            
+    color: #fff; /* Cor do texto (exemplo: branco para contraste com fundos escuros) */
+    text-align: center; /* Alinha o texto ao centro */
+    padding: 20px; /* Adiciona um preenchimento interno */
+  }
+</style>
+
+<div class="template-wrapper">
+  <div id="lyric">
+
+  </div>
+</div>
