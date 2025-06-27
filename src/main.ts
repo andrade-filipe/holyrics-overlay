@@ -62,7 +62,7 @@ async function handleLyricChange(payload: any) {
 
     const lyricEl = currentRoot?.querySelector<HTMLElement>("#lyric");
     if (lyricEl) {
-      lyricEl.textContent = lyricLine.replace(/\n/g, "\n");
+      lyricEl.innerHTML = lyricLine.replace(/\\n|\n/g, '<br>');
       console.log("[Lyric] Texto da letra atualizado");
     } else {
       console.warn('[Lyric] "#lyric" não encontrado');
