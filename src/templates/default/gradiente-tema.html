@@ -2,20 +2,21 @@
   @import url('https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap');
 
   .template-wrapper {
-    display: flex; /* Permite centralizar o conteúdo facilmente */
-    align-items: center; /* Centraliza o conteúdo verticalmente */
-    justify-content: center; /* Centraliza o conteúdo horizontalmente */
-    width: 100%; /* Ocupa 100% da largura da viewport */
-    height: 100vh; /* Ocupa 100% da altura da viewport */
-            
-    /* Configuração da imagem de fundo */
-    background-image: url('bg-tema.png'); /* Define o caminho da imagem */
-    background-repeat: no-repeat; /* **IMP: Garante que a imagem não se repita** */
-    background-size: cover; /* **IMP: Faz a imagem cobrir toda a área, sem repetição** */
-    background-position: center center; /* Centraliza a imagem no contêiner */
-            
-    position: relative; /* Necessário se houver elementos posicionados absolutamente dentro */
-    overflow: hidden; /* Garante que nada transborde do contêiner */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      /* **AJUSTE AQUI: Use 100vh para ocupar 100% da altura da viewport** */
+      height: 100vh;
+      
+      /* Ajustes para a imagem de fundo */
+      background-image: url('bg-tema.png');
+      background-repeat: no-repeat; /* Garante que a imagem não se repita */
+      /* background-size: cover;  Faz a imagem cobrir toda a área, sem repetição */
+      background-position: center center; /* Centraliza a imagem no contêiner */
+      
+      position: relative;
+      overflow: hidden;
   }
 
   #lyric {
