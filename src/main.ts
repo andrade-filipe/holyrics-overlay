@@ -60,9 +60,18 @@ async function handleLyricChange(payload: any) {
       console.log(`[Lyric] Template trocado para "${tplName}"`);
     }
 
-    const lyricEl = currentRoot?.querySelector<HTMLElement>("#lyric");
+    const lyricEl = currentRoot?.querySelector<HTMLElement>("#lyric");    
     if (lyricEl) {
-      lyricEl.innerHTML = lyricLine.replace(/\\n|\n/g, '<br>');
+      console.log(`[Debug] Template atual: '${currentTemplate}'`); // Log para depuração
+      if (currentTemplate.includes('voice')) {
+        console.log('[Debug] Aplicando formatação para voice.html'); // Log para depuração
+        const lines = lyricLine.split(/\n|\n/);
+        const line1 = lines[0] || '';
+        const line2 = lines[1] || '';
+        lyricEl.innerHTML = `<div class="line1">${line1}</div><div class="line2">${line2}</div>`;
+      } else { 
+        lyricEl.innerHTML = lyricLine.replace(/\n|\n/g, '<br>');
+        }
       console.log("[Lyric] Texto da letra atualizado");
     } else {
       console.warn('[Lyric] "#lyric" não encontrado');

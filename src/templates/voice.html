@@ -1,24 +1,42 @@
-<!-- Template 4 – Voz Imponente -->
+<!-- Template: Voice (CSS-only) -->
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-  .template-wrapper { display:flex;align-items:center;justify-content:center;width:100%;height:100%; }
-  .voz { background:#111; }
+  @import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+
+  .template-wrapper.voz {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: #111;
+  }
+
   .voz #lyric {
-    font-family:'Bebas Neue',sans-serif;font-size:12vh;
-    background:linear-gradient(90deg,#ff0057,#ffcc00);
-    -webkit-background-clip:text;color:transparent;
-    white-space:pre-wrap;word-break:break-word;
-    text-align:center;margin:0;
+    font-family: 'Questrial', sans-serif;
+    text-align: center;
+  }
+
+  /* Estilos para as linhas geradas pelo main.ts */
+  .voz .line1,
+  .voz .line2 {
+    background: linear-gradient(90deg, #ff0057, #ffcc00);
+    -webkit-background-clip: text;
+    color: transparent;
+    padding: 0 1rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .voz .line1 {
+    font-size: 12rem;
+    font-weight: bold;
+  }
+
+  .voz .line2 {
+    font-size: 8rem;
   }
 </style>
+
 <div class="template-wrapper voz">
   <div id="lyric"></div>
 </div>
-<script>
-  document.addEventListener('DOMContentLoaded',()=>{
-    const el=document.querySelector('.voz #lyric');
-    if(el){
-      el.innerHTML=(el.textContent||'').split('\\n').join('<br>');
-    }
-  });
-</script>
