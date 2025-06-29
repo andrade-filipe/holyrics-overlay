@@ -4,5 +4,3 @@ Elegantes: Prata, Yeseva One, Półtawski Nowy, Cormorant Garamond
 Sem Serifa Simples: Lato, Questrial
 Sem Serifa Complementar: Raleway
 Cursivo: Imperial Script, Tangerine, Great Vibes
-
-!

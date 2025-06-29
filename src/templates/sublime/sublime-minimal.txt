@@ -1,0 +1,65 @@
+##(sublime) 
+ 
+
+ 
+<div class="verse-block">
+Quem é como Tu?
+<span class="emphasis">Jesus</span>
+</div>
+
+Não há ninguém 
+além de Ti
+
+Que é <span class="emphasis">Manso</span> e
+<span class="emphasis">Humilde</span> assim
+
+Não há <span class="emphasis">ninguém</span> 
+igual a Ti, Não há
+
+<span class="emphasis">Maravilhoso</span>
+
+Admirável
+
+<span class="emphasis">Tão sublime</span>
+
+Glorioso
+
+Tua presença
+
+É mais <span class="emphasis">desejável</span>
+Do que o ouro
+
+Melhor que a vida 
+é o <span class="emphasis">Teu amor</span>
+
+<div class="verse-block">
+<span class="emphasis2">Ah</span>
+como espero o dia
+</div>
+
+<span class="emphasis">Em que verei</span>
+a face do meu amado
+
+<div class="verse-block">
+<span class="emphasis2">Ah</span>
+como espero o dia
+</div>
+
+<span class="emphasis">Em que a alegria</span>
+enfim será completa
+
+<div class="verse-block">
+<span class="emphasis2">Ah</span>
+como espero o dia
+</div>
+
+<span class="emphasis">Em que verei</span>
+a face do meu amado
+
+<div class="verse-block">
+<span class="emphasis2">Ah</span>
+como espero o dia
+</div>
+
+<span class="emphasis">Em que a alegria</span>
+enfim será completa
