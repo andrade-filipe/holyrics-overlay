@@ -1,0 +1,63 @@
+<!-- Template: Mananciais -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
+
+  body {
+    background-color: #f5f5f5; /* Off-white */
+    /* Textura de ruído para o fundo */
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNzUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2hBZnRlckFsbCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjbm9pc2UpIiBvcGFjaXR5PSIwLjA1Ii8+PC9zdmc+');
+    background-size: 100px 100px;
+  }
+
+  .template-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .ellipse-container {
+    display: flex;
+    flex-direction: column; /* Para alinhar as linhas verticalmente */
+    align-items: center;
+    justify-content: center;
+    width: 80vw; /* Largura da elipse */
+    height: 40vh; /* Altura da elipse */
+    border-radius: 50%; /* Transforma em elipse */
+    /* Gradiente ciano para laranja */
+    background-image: url('/pexels-codioful-6985001.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay; /* Mistura a textura com o gradiente */
+    filter: blur(0.5px); /* Desfoque sutil */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sombra suave */
+    padding: 2rem;
+    box-sizing: border-box;
+  }
+
+  /* Estilos para as linhas geradas pelo main.ts */
+  .ellipse-container .line1,
+  .ellipse-container .line2 {!
+    font-family: 'Prata', serif;
+    font-size: 9rem; /* Padrão de 9rem */
+    color: black; /* Cor do texto para contrastar com o gradiente */
+    text-align: center;
+    white-space: pre-line;
+    word-break: break-word;
+    line-height: 1.2;
+    font-weight: 300; /* Peso fino para a fonte Prata */
+  }
+
+  .ellipse-container .line2 {
+    font-style: italic;
+  }
+</style>
+
+<div class="template-wrapper">
+  <div class="ellipse-container">
+    <div id="lyric"></div>
+  </div>
+</div>

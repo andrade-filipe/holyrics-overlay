@@ -1,0 +1,17 @@
+
+#quadro-referencia {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 955px;
+  height: 769px;
+  border: 2px dashed red;
+  pointer-events: none;
+  z-index: 9999;
+  visibility: hidden; /* Inicia oculto */
+}
+
+#quadro-referencia.visible {
+  visibility: visible;
+}

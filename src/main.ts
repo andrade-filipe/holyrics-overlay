@@ -1,3 +1,5 @@
+import { setupQuadroReferencia } from './quadro-referencia';
+
 // src/main.ts
 
 /* ---------------- estado & cache ---------------- */
@@ -7,6 +9,7 @@ const TEMPLATE_CACHE = new Map<string, string>();       // path → HTML
 
 /* ---------------- boot listeners ---------------- */
 initListeners();
+setupQuadroReferencia();
 
 // HMR e WebSocket
 const socket = new WebSocket(`ws://${location.host}`);
@@ -62,9 +65,7 @@ async function handleLyricChange(payload: any) {
 
     const lyricEl = currentRoot?.querySelector<HTMLElement>("#lyric");    
     if (lyricEl) {
-      console.log(`[Debug] Template atual: '${currentTemplate}'`); // Log para depuração
-      if (currentTemplate.includes('voice')) {
-        console.log('[Debug] Aplicando formatação para voice.html'); // Log para depuração
+      if (currentTemplate === 'voice' || currentTemplate === 'mananciais') {
         const lines = lyricLine.split(/\n|\n/);
         const line1 = lines[0] || '';
         const line2 = lines[1] || '';
